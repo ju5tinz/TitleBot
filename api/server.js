@@ -1,21 +1,25 @@
 const express = require('express');
+const cors = require('cors');
 const http = require('http');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const { JSDOM } = require('jsdom');
 
 const app = express();
 
 /* EXPESS CONFIG */
 app.use(express.json());
+app.use(cors());
 
 /* ROUTE CONFIG */
 app.post('/title', async (req, res) => {
   const url = req.body.url;
   try {
-    const title = getTitle(url);
-    res.send(title);
+    const title = await getTitle(url);
+    res.send({title});
   } catch (err) {
-    console.log("Error getting title: ", err);
-
+    res.status(500).send({
+      message: err
+    });
   }
 });
 
@@ -27,12 +31,27 @@ var server = http.createServer(app);
 
 server.listen(port);
 
-function getTitle(url) {
+/* UTILITY FUNCTIONS */
+
+// Find the title of a website at a given url
+async function getTitle(url) {
   try{
-    const data = await fetch(url);
-    const html = data.text();
-    console.log("html: ", html);
+    const formattedUrl = formatUrl(url);
+    const data = await fetch(formattedUrl);
+    const html = await data.text();
+    const dom = new JSDOM(html);
+    const title = dom.window.document.title;
+    return title
   } catch (err) {
-    console.log("Unable to fetch url: ", url);
+    throw new Error(err);
   }
+}
+
+// Add http:// to url if it is missing. This allows fetch to work on the url
+function formatUrl(url) {
+  if(url.startsWith("http://") || url.startsWith("https://")){
+    return url;
+  }
+
+  return "http://" + url;
 }
