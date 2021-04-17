@@ -1,4 +1,51 @@
 html,
-body {
+body,
+#root {
   height: 100%;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+#form-container,
+#error-message {
+  margin: 0 auto;
+}
+
+.url-input,
+.url-input:focus {
+  background: #FFFFFF;
+  border: 1.9px solid #A2A2A2;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 11px;
+  font-size: 30px;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.url-submit {
+  background: #E8E8E8;
+  border: 1.9px solid #A2A2A2;
+  box-sizing: border-box;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 11px;
+  font-size: 21px;
+  height: auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.list-main-item {
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.list-sec-item {
+  font-size: 18px;
+  color: grey;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.url-text {
+  word-wrap: break-word;
+  max-width: 50%;
 }
