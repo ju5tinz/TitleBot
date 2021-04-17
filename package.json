@@ -1,0 +1,12 @@
+{
+  "name": "titlebot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "(cd api && npm install); (cd client && npm install);"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
