@@ -15,10 +15,17 @@ app.post('/title', async (req, res) => {
   const url = req.body.url;
   try {
     const title = await getTitle(url);
-    res.send({title});
+    
+    if (title.length === 0) {
+      res.status(500).send({
+        message: "No title exists for url: " + url
+      });
+    } else {
+      res.send({title});
+    }
   } catch (err) {
     res.status(500).send({
-      message: err
+      message: "Unable to fetch title for url: " + url
     });
   }
 });
@@ -41,7 +48,7 @@ async function getTitle(url) {
     const html = await data.text();
     const dom = new JSDOM(html);
     const title = dom.window.document.title;
-    return title
+    return title;
   } catch (err) {
     throw new Error(err);
   }
