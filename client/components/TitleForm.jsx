@@ -18,7 +18,7 @@ export default TitleForm = ({ addToList }) => {
       if (response.status === 500) {
         setError(data.message);
       } else {
-        addToList(url, data.title);
+        addToList(data.formattedUrl, data.title);
       }
     } catch (err) {
       setError(err);
